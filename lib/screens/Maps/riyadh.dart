@@ -60,7 +60,7 @@ class _RiyadhState extends State<Riyadh> {
       "region": "Central-west Region of South Asia",
     },
     {
-      "address": "AL NARJIS",
+      "address": "AL5",
       "id": "station_05",
       "lat": 24.8343,
       "lng": 46.6792,
