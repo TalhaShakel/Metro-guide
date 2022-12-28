@@ -25,12 +25,13 @@ class _RiyadhState extends State<Riyadh> {
   final List<Map<String, dynamic>> cityList = const [
     {
       // "address": "AL MUNSIYAH",
-      "address": "AL",
+      "address": "AL1",
       "id": "Thagr Plaza_01",
       "lat": 24.824633,
       "lng": 46.790478,
       "name": "Metro Station 1",
       "region": "Central-west Region of South Asia",
+      "index": 0
     },
     {
       // "address": "National Guard Hospital",
@@ -40,6 +41,7 @@ class _RiyadhState extends State<Riyadh> {
       "lng": 46.8570,
       "name": "Metro Station 2",
       "region": "Central-west Region of South Asia",
+      "index": 1
     },
     {
       // "address": "AL ZAHRA",
@@ -49,6 +51,7 @@ class _RiyadhState extends State<Riyadh> {
       "lng": 46.74,
       "name": "Metro Station 3",
       "region": "Central-west Region of South Asia",
+      "index": 2
     },
     {
       // "address": "HITTIN",
@@ -58,6 +61,7 @@ class _RiyadhState extends State<Riyadh> {
       "lng": 46.6038,
       "name": "Metro Station 4",
       "region": "Central-west Region of South Asia",
+      "index": 3
     },
     {
       "address": "AL5",
@@ -66,6 +70,7 @@ class _RiyadhState extends State<Riyadh> {
       "lng": 46.6792,
       "name": "Metro Station 5",
       "region": "Central-west Region of South Asia",
+      "index": 4
     },
   ];
   final Map<String, Marker> _markers = {};
@@ -143,6 +148,53 @@ class _RiyadhState extends State<Riyadh> {
     MapsLauncher.launchCoordinates(lat, long);
   }
 
+  latlng(i) {
+    LatLng latlnng = LatLng(cityList[i]["lat"], cityList[i]["lng"]);
+    return latlnng;
+  }
+
+  List<LatLng> latlangline = <LatLng>[];
+  // dubarakartayhian() {}
+  // var loc = "AL";
+  addAllpolyline() async {
+    latlangline = [];
+    final Set<Polyline> polylines = {};
+    var id1;
+    var id2;
+    for (var i = 0; i < cityList.length; i++) {
+      if (cityList[i]["address"].contains(plocation.text)) {
+        // print(cityList[i]["index"]);
+        id1 = cityList[i]["index"];
+        
+        // if (cityList[i]["index"]) {}
+      }
+      if (cityList[i]["address"].contains(glocation.text)) {
+        id2 = cityList[i]["index"];
+        // print(cityList[i]["index"]);
+      }
+    }
+    for (var i = id1; i <= id2; i++) {
+      print(cityList[i]);
+      // latlangline = [];
+
+      LatLng latss = latlng(i);
+      latlangline.add(latss);
+      print(latlangline.toString() + "ddd");
+    }
+    for (var i = id1; i >= id2; i--) {
+      print(cityList[i]);
+      // latlangline = [];
+
+      LatLng latss = latlng(i);
+
+      latlangline.add(latss);
+    }
+    setState(() {
+      _kPolyline = Polyline(
+          polylineId: PolylineId('_kPolyline'), width: 5, points: latlangline);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,30 +226,70 @@ class _RiyadhState extends State<Riyadh> {
               child: Card(
                 elevation: 8,
                 child: TextFormField(
+                  // onTap: () async {
+                  //   print("object");
+                  //   setState(() {});
+                  //   await addAllpolyline();
+                  //   print("");
+                  // },
                   controller: plocation,
-                  onChanged: (value) {
-                    setState(() {
-                      for (var i = 0; i < cityList.length; i++) {
-                        if (cityList[i]["address"].contains(value)) {
-                          print(1);
-                          lat = cityList[0]["lat"];
-                          lng = cityList[0]["lng"];
-                        }
-                      }
-                      // if (cityList[0]["address"].contains(value)) {
-                      //   print(1);
-                      //   lat = cityList[0]["lat"];
-                      //   lng = cityList[0]["lng"];
-                      // } else if (cityList[1]["address"].contains(value)) {
-                      //   lat = cityList[1]["lat"];
-                      //   lng = cityList[1]["lng"];
-                      // } else if (cityList[2]["address"].contains(value)) {
-                      //   lat = cityList[2]["lat"];
-                      //   lng = cityList[2]["lng"];
-                      // }
-                    });
-                    // print(cityList.contains(value));
-                  },
+
+                  // onChanged: (value) async {
+                  //   // List data = [1, 2, 3];
+
+                  //   // setState(() {
+                  //   for (var i = 0; i < cityList.length; i++) {
+                  //     for (final _ in cityList[i]["address"]) {
+                  //       print('$_');
+                  //       if (_ == value) {
+                  //         break;
+                  //       }
+                  //     }
+                  //   }
+                  //   //     // print(cityList[i][["address"]].toString() +
+                  //   //     //     "add".toString());
+
+                  //   //     if (cityList[i]["address"].contains(value)) {
+                  //   //       print(cityList[i][["address"]].toString() +
+                  //   //           "check tab ${cityList[i]["lat"]}".toString());
+                  //   //       cityList[i];
+
+                  //   //       // print(1);
+                  //   //       lat = cityList[i]["lat"];
+                  //   //       lng = cityList[i]["lng"];
+
+                  //   //       _kPolyline = Polyline(
+                  //   //           polylineId: PolylineId('_kPolyline'),
+                  //   //           width: 5,
+                  //   //           points: [
+                  //   //             LatLng(lat ?? 0, lng ?? 0),
+                  //   //             // LatLng(cityList[i]["lat"], cityList[i]["lng"]),
+                  //   //             LatLng(lat2 ?? 0, lng2 ?? 0)
+                  //   //           ]);
+                  //   //       // LatLng latss = latlng(i);
+                  //   //       // latlangline.add(latss);
+                  //   //       // _kPolyline = Polyline(
+                  //   //       //     polylineId: PolylineId('_kPolyline'),
+                  //   //       //     width: 5,
+                  //   //       //     points: [
+                  //   //       //       latlangline.first,
+                  //   //       //     ]);
+                  //   //     }
+                  //   //   }
+                  //   //   // if (cityList[0]["address"].contains(value)) {
+                  //   //   //   print(1);
+                  //   //   //   lat = cityList[0]["lat"];
+                  //   //   //   lng = cityList[0]["lng"];
+                  //   //   // } else if (cityList[1]["address"].contains(value)) {
+                  //   //   //   lat = cityList[1]["lat"];
+                  //   //   //   lng = cityList[1]["lng"];
+                  //   //   // } else if (cityList[2]["address"].contains(value)) {
+                  //   //   //   lat = cityList[2]["lat"];
+                  //   //   //   lng = cityList[2]["lng"];
+                  //   //   // }
+                  //   // });
+                  //   // // print(cityList.contains(value));
+                  // },
                 ),
               ),
             ),
@@ -211,88 +303,97 @@ class _RiyadhState extends State<Riyadh> {
                 elevation: 8,
                 child: TextFormField(
                   controller: glocation,
-                  onChanged: (value) {
-                    setState(() {
-                      for (var i = 0; i < cityList.length; i++) {
-                        if (cityList[i]["address"].contains(value)) {
-                          lat2 = cityList[i]["lat"];
-                          lng2 = cityList[i]["lng"];
 
-                          // l2 = LatLng(lat2, lng2);
-                          _kPolyline = Polyline(
-                              polylineId: PolylineId('_kPolyline'),
-                              width: 5,
-                              points: [
-                                LatLng(lat ?? 0, lng ?? 0),
-                                LatLng(lat2 ?? 0, lng2 ?? 0)
-                              ]);
-                          // print(l2);
-                        }
-                      }
-                      if (cityList[1]["address"].contains(value)) {
-                        lat2 = cityList[1]["lat"];
-                        lng2 = cityList[1]["lng"];
+                  // onChanged: (value) {
+                  //   setState(() {
+                  //     for (var i = 0; i < cityList.length; i++) {
+                  //       if (cityList[i]["address"].contains(value)) {
+                  //         print(cityList[i][["address"]]);
+                  //         lat2 = cityList[i]["lat"];
+                  //         lng2 = cityList[i]["lng"];
+                  //         LatLng latss = latlng(i);
+                  //         latlangline.add(latss);
 
-                        // l2 = LatLng(lat2, lng2);
-                        _kPolyline = Polyline(
-                            polylineId: PolylineId('_kPolyline'),
-                            width: 5,
-                            points: [
-                              LatLng(lat ?? 0, lng ?? 0),
-                              LatLng(lat2 ?? 0, lng2 ?? 0)
-                            ]);
-                        // print(l2);
-                      }
-                    });
-                  },
+                  //         // l2 = LatLng(lat2, lng2);
+                  //         _kPolyline = Polyline(
+                  //             polylineId: PolylineId('_kPolyline'),
+                  //             width: 5,
+                  //             points: [
+                  //               LatLng(lat ?? 0, lng ?? 0),
+                  //               LatLng(lat2 ?? 0, lng2 ?? 0)
+                  //             ]);
+                  //         // _kPolyline = Polyline(
+                  //         //     polylineId: PolylineId('_kPolyline'),
+                  //         //     width: 5,
+                  //         //     points: [latlangline.first]);
+                  //         // print(l2);
+                  //       }
+                  //     }
+                  //     // if (cityList[1]["address"].contains(value)) {
+                  //     //   lat2 = cityList[1]["lat"];
+                  //     //   lng2 = cityList[1]["lng"];
+
+                  //     //   // l2 = LatLng(lat2, lng2);
+                  //     //   _kPolyline = Polyline(
+                  //     //       polylineId: PolylineId('_kPolyline'),
+                  //     //       width: 5,
+                  //     //       points: [
+                  //     //         LatLng(lat ?? 0, lng ?? 0),
+                  //     //         LatLng(lat2 ?? 0, lng2 ?? 0)
+                  //     //       ]);
+                  //     //   // print(l2);
+                  //     // }
+                  //   });
+                  // },
                 ),
               ),
             ),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       // if (cityList[0]["address"]
-            //       //     .contains(plocation.text.toString().trim())) {
-            //       //   // double val1 = cityList[0]["lat"];
-            //       //   // double val2 = cityList[0]["lng"];
-            //       //   print(1);
-            //       //   lat = cityList[0]["lat"];
-            //       //   lng = cityList[0]["lng"];
-            //       //   // l1 = LatLng(cityList[0]["lat"], cityList[0]["lng"]);
-            //       //   // l1 = LatLng(lat, lng);
+            ElevatedButton(
+                onPressed: () {
+                  addAllpolyline();
+                  // if (cityList[0]["address"]
+                  //     .contains(plocation.text.toString().trim())) {
+                  //   // double val1 = cityList[0]["lat"];
+                  //   // double val2 = cityList[0]["lng"];
+                  //   print(1);
+                  //   lat = cityList[0]["lat"];
+                  //   lng = cityList[0]["lng"];
+                  //   // l1 = LatLng(cityList[0]["lat"], cityList[0]["lng"]);
+                  //   // l1 = LatLng(lat, lng);
 
-            //       //   print(l1);
-            //       // }
-            //       // if (cityList[1]["address"]
-            //       //     .contains(glocation.text.toString().trim())) {
-            //       //   print(12);
+                  //   print(l1);
+                  // }
+                  // if (cityList[1]["address"]
+                  //     .contains(glocation.text.toString().trim())) {
+                  //   print(12);
 
-            //       //   // double val1 = cityList[0]["lat"];
-            //       //   // double val2 = cityList[0]["lng"];
-            //       //   lat2 = cityList[1]["lat"];
-            //       //   lng2 = cityList[1]["lng"];
-            //       //   // print(l)
+                  //   // double val1 = cityList[0]["lat"];
+                  //   // double val2 = cityList[0]["lng"];
+                  //   lat2 = cityList[1]["lat"];
+                  //   lng2 = cityList[1]["lng"];
+                  //   // print(l)
 
-            //       //   // l1 = LatLng(cityList[1]["lat"], cityList[1]["lng"]);
-            //       //   // l2 = LatLng(lat2, lng2);
+                  //   // l1 = LatLng(cityList[1]["lat"], cityList[1]["lng"]);
+                  //   // l2 = LatLng(lat2, lng2);
 
-            //       //   print(l2);
-            //       // }
-            //       setState(() {
-            //         // Get.to(() => Riyadh());
-            //         lat = 24.824633;
-            //         lng = 46.790478;
-            //         lat2 = 24.7422;
-            //         lng2 = 46.857;
-            //         _kPolyline = Polyline(
-            //             polylineId: PolylineId('_kPolyline'),
-            //             width: 5,
-            //             points: [
-            //               LatLng(lat ?? 0, lng ?? 0),
-            //               LatLng(lat2 ?? 0, lng2 ?? 0)
-            //             ]);
-            //       });
-            //     },
-            //     child: Text("search"))
+                  //   print(l2);
+                  // }
+                  // setState(() {
+                  //   // Get.to(() => Riyadh());
+                  //   lat = 24.824633;
+                  //   lng = 46.790478;
+                  //   lat2 = 24.7422;
+                  //   lng2 = 46.857;
+                  // _kPolyline = Polyline(
+                  //     polylineId: PolylineId('_kPolyline'),
+                  //     width: 5,
+                  //     points: [
+                  //       LatLng(lat ?? 0, lng ?? 0),
+                  //       LatLng(lat2 ?? 0, lng2 ?? 0)
+                  //     ]);
+                  // });
+                },
+                child: Text("search"))
           ],
         ),
       ),
